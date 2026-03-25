@@ -84,8 +84,13 @@ class Matter4Iterator(Iterator):
 
 @add_matter_4_iterator
 class SchoolClass(Iterable):
-    def __init__(self):
-        self.etudiants = []
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.etudiants = []
+        return cls._instance
 
     def add_student(self, student: Student):
         self.etudiants.append(student)
@@ -107,6 +112,10 @@ school_class = SchoolClass()
 school_class.add_student(Student('J', 10, 12, 13, 15))
 school_class.add_student(Student('A', 8, 2, 17, 11))
 school_class.add_student(Student('V', 9, 14, 14, 7))
+
+# Vérification du Singleton : les deux variables pointent vers la même instance
+school_class_2 = SchoolClass()
+print(school_class is school_class_2)
 
 for s in school_class.rank_matter_1():
     print(f"{s.nom} : {s.notes[0]}")
