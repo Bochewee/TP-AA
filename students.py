@@ -1,3 +1,6 @@
+from collections.abc import Iterable, Iterator
+
+
 class Student:
     def __init__(self, nom: str, note1: float, note2: float, note3: float):
         self.nom = nom
@@ -7,12 +10,28 @@ class Student:
         return sum(self.notes) / len(self.notes)
 
 
-class SchoolClass:
+class Matter1Iterator(Iterator):
+    def __init__(self, etudiants):
+        self._sorted = sorted(etudiants, key=lambda s: s.notes[0], reverse=True)
+        self._index = 0
+
+    def __next__(self):
+        if self._index >= len(self._sorted):
+            raise StopIteration
+        student = self._sorted[self._index]
+        self._index += 1
+        return student
+
+
+class SchoolClass(Iterable):
     def __init__(self):
         self.etudiants = []
 
     def add_student(self, student: Student):
         self.etudiants.append(student)
+
+    def __iter__(self):
+        return Matter1Iterator(self.etudiants)
 
     def rank_matter_1(self):
         return sorted(self.etudiants, key=lambda s: s.notes[0], reverse=True)
@@ -37,3 +56,6 @@ for s in school_class.rank_matter_2():
 
 for s in school_class.rank_matter_3():
     print(f"{s.nom} : {s.notes[2]}")
+
+for s in school_class:
+    print(f"{s.nom} : {s.notes[0]}")
