@@ -17,6 +17,12 @@ class SchoolClass:
     def rank_matter_1(self):
         return sorted(self.etudiants, key=lambda s: s.notes[0], reverse=True)
 
+    def rank_matter_2(self):
+        return sorted(self.etudiants, key=lambda s: s.notes[1], reverse=True)
+
+    def rank_matter_3(self):
+        return sorted(self.etudiants, key=lambda s: s.notes[2], reverse=True)
+
 
 school_class = SchoolClass()
 school_class.add_student(Student('J', 10, 12, 13))
@@ -25,3 +31,9 @@ school_class.add_student(Student('V', 9, 14, 14))
 
 for s in school_class.rank_matter_1():
     print(f"{s.nom} : {s.notes[0]}")
+
+for s in school_class.rank_matter_2():
+    print(f"{s.nom} : {s.notes[1]}")
+
+for s in school_class.rank_matter_3():
+    print(f"{s.nom} : {s.notes[2]}")
