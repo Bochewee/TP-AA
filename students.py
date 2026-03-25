@@ -12,6 +12,14 @@ def add_matter_4(cls):
     return cls
 
 
+def add_matter_4_iterator(cls):
+    def iter_matter_4(self):
+        return Matter4Iterator(self.etudiants)
+
+    cls.iter_matter_4 = iter_matter_4
+    return cls
+
+
 @add_matter_4
 class Student:
     def __init__(self, nom: str, note1: float, note2: float, note3: float):
@@ -74,6 +82,7 @@ class Matter4Iterator(Iterator):
         return student
 
 
+@add_matter_4_iterator
 class SchoolClass(Iterable):
     def __init__(self):
         self.etudiants = []
@@ -117,5 +126,5 @@ for s in Matter2Iterator(school_class.etudiants):
 for s in Matter3Iterator(school_class.etudiants):
     print(f"{s.nom} : {s.notes[2]}")
 
-for s in Matter4Iterator(school_class.etudiants):
+for s in school_class.iter_matter_4():
     print(f"{s.nom} : {s.notes[3]}")
