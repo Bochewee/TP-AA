@@ -1,18 +1,21 @@
-class Note:
-    def __init__(self, matiere: str, valeur: float):
-        self.matiere = matiere
-        self.valeur = valeur
-
-
-class Etudiant:
-    def __init__(self, nom: str, notes: list[Note]):
+class Student:
+    def __init__(self, nom: str, note1: float, note2: float, note3: float):
         self.nom = nom
-        self.notes = notes
+        self.notes = [note1, note2, note3]
 
     def moyenne(self) -> float:
-        return sum(note.valeur for note in self.notes) / len(self.notes)
+        return sum(self.notes) / len(self.notes)
 
 
-class Classe:
-    def __init__(self, etudiants: list[Etudiant]):
-        self.etudiants = etudiants
+class SchoolClass:
+    def __init__(self):
+        self.etudiants = []
+
+    def add_student(self, student: Student):
+        self.etudiants.append(student)
+
+
+school_class = SchoolClass()
+school_class.add_student(Student('J', 10, 12, 13))
+school_class.add_student(Student('A', 8, 2, 17))
+school_class.add_student(Student('V', 9, 14, 14))
